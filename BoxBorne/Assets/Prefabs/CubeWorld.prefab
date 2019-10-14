@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5594903245701377102}
   - component: {fileID: 464180344774284933}
   m_Layer: 9
-  m_Name: RoundedCube
+  m_Name: CubeWorld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49,7 +49,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6168173195739781266}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1

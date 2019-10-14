@@ -14,6 +14,33 @@ public class CubeController : MonoBehaviour
 
     [SerializeField] private float m_positionOffsetScale;
 
+    private bool isTeleporting;
+
+    public void TeleportPlayer(Transform target, float duration)
+    {
+        if (isTeleporting) { return; }
+        StartCoroutine(TeleportPlayer_Coroutine(target, duration));
+    }
+
+    private IEnumerator TeleportPlayer_Coroutine(Transform target, float duration)
+    {
+        isTeleporting = true;
+
+        float remainingTime = duration;
+        Vector3 startLocation = transform.position;
+
+        while (remainingTime > 0)
+        {
+            float d = 1.0f - (remainingTime / duration);
+            transform.position = Vector3.Lerp(startLocation, target.position, d);
+            yield return null;
+            remainingTime -= Time.deltaTime;
+        }
+
+        transform.position = target.position;
+        isTeleporting = false;
+    }
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -21,6 +48,12 @@ public class CubeController : MonoBehaviour
 
     void Update()
     {
+
+        if (isTeleporting)
+        {
+            return;
+        }
+
         // Get movement direction based on camera orientation
         // Taken from https://gamedev.stackexchange.com/questions/89693/how-could-i-constrain-player-movement-to-the-surface-of-a-3d-object-using-unity
         //
