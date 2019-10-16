@@ -29,6 +29,9 @@ public class Enemy : EnemyPhysics
     [SerializeField] private List<Transform> patrolPoints = new List<Transform>();
     private int patrolPointIndex = 0;
 
+    // Misc
+    private bool knockedBack = false;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -38,38 +41,48 @@ public class Enemy : EnemyPhysics
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            TakeDamage(player.transform.position, 5);
+        }
+        
         UpdateCharacterTransform(transform.position);
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
 
-        if (distanceToPlayer <= detectionRange)
+        if (!knockedBack)
         {
-            if (detectionRange != originalDetectionRange * 2)
+            if (distanceToPlayer <= detectionRange)
             {
-                detectionRange = originalDetectionRange * 2;
-            }
+                transform.LookAt(player.transform.position, transform.up);
 
-            // Play detectedAudioClip here
-
-            if (distanceToPlayer > minimumRange)
-            {
-                MoveToLocation(player.transform);
-            }
-
-            if (distanceToPlayer <= attackRange)
-            {
-                if (Time.time > attackDelay)
+                if (detectionRange != originalDetectionRange * 2)
                 {
-                    attackDelay = attackDelay + attackCooldown;
-                    Attack();
+                    detectionRange = originalDetectionRange * 2;
+                }
+
+                // Play detectedAudioClip here
+
+                if (distanceToPlayer > minimumRange)
+                {
+                    MoveToLocation(player.transform);
+                }
+
+                if (distanceToPlayer <= attackRange)
+                {
+                    if (Time.time > attackDelay)
+                    {
+                        attackDelay = attackDelay + attackCooldown;
+                        Attack();
+                    }
                 }
             }
-        }
-        else
-        {
-            detectionRange = originalDetectionRange;
-            Patrol();
-        }
+            else
+            {
+                detectionRange = originalDetectionRange;
+                Patrol();
+            }
+        }        
     }
 
     private void MoveToLocation(Transform targetTransform)
@@ -110,10 +123,12 @@ public class Enemy : EnemyPhysics
         }
     }
 
-    public void TakeDamage(int damageValue)
+    public void TakeDamage(Vector3 sourcePoint, int damageValue)
     {
         health -= damageValue;
         CheckHealth();
+
+        StartCoroutine(KnockbackEffect(0.5f));
     }
 
     private void CheckHealth()
@@ -129,7 +144,15 @@ public class Enemy : EnemyPhysics
         Destroy(gameObject); // Update later for a death animation/sound effect to be played before destruction
     }
 
-    private void OnDrawGizmos()
+    private IEnumerator KnockbackEffect(float movementLockoutDuration)
+    {
+        knockedBack = true;
+        transform.position = Vector3.Lerp(transform.position, transform.position - transform.forward * 0.5f, movementLockoutDuration * m_moveSpeed);
+        yield return new WaitForSeconds(movementLockoutDuration);
+        knockedBack = false;
+    }
+
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
