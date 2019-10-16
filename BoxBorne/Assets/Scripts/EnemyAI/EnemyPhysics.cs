@@ -18,6 +18,8 @@ public class EnemyPhysics : MonoBehaviour
 
     [SerializeField] protected float m_AttackRadius;
 
+    [SerializeField] protected DialogueScriptableObject dialogue;
+
 
     protected void Awake()
     {
@@ -92,5 +94,10 @@ public class EnemyPhysics : MonoBehaviour
         }
 
         return false;
+    }
+
+    protected void onInteraction()
+    {
+        DialogueManager.Instance.DisplayLineAndPlayVoice(dialogue, dialogue.VoiceLine);
     }
 }
