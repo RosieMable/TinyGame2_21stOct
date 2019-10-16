@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyPhysics : MonoBehaviour
+public abstract class EnemyPhysics : MonoBehaviour
 {
     [SerializeField] protected float m_moveSpeed;
 
@@ -10,43 +10,32 @@ public class EnemyPhysics : MonoBehaviour
 
     [SerializeField] protected LayerMask m_worldLayerMask;
 
-    [SerializeField] protected Transform m_cameraTransform;
-
     [SerializeField] protected float m_positionOffsetScale;
-
-    [SerializeField] protected float m_AwareRadius;
-
-    [SerializeField] protected float m_AttackRadius;
 
     [SerializeField] protected DialogueScriptableObject dialogue;
 
-
-    protected void Awake()
+    protected void FixedUpdate()
     {
-        if(!m_cameraTransform)
-            m_cameraTransform = Camera.main.transform;
-    }
-
-    protected void Update()
-    {
-
         // Get movement direction based on camera orientation
         // Taken from https://gamedev.stackexchange.com/questions/89693/how-could-i-constrain-player-movement-to-the-surface-of-a-3d-object-using-unity
         //
-        Vector3 movementDirection = Vector3.zero;
-        
+
+        //Vector3 movementDirection = //Vector3.MoveTowards(transform.position, player.transform.position, m_moveSpeed * Time.deltaTime);
+        //Quaternion targetRotation = Quaternion.LookRotation(player.transform.position - transform.position);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotateSpeed * Time.deltaTime);
+
+        //transform.LookAt(player.transform, transform.up);
+        //transform.position = Vector3.MoveTowards(transform.position, player.transform.position, m_moveSpeed * Time.deltaTime);
+        //UpdatePlayerTransform(transform.position);
+
         //We need a move towards the player, there might be some issues with the rotation and direction of the character, 
-       // since they changed based on the face they are
-       //This is why I advise having possibly the enemies keeping a track of the main camera, which always keeps the correct directions
+        // since they changed based on the face they are
+        //This is why I advise having possibly the enemies keeping a track of the main camera, which always keeps the correct directions
+
+
     }
 
-   protected void UpdatePlayerRotation()
-    {
-        float rotation = Input.GetAxis("Mouse X") * m_rotateSpeed * Time.deltaTime;
-        transform.Rotate(Vector3.up, rotation);
-    }
-
-   protected Vector3 GetInterpolatedHitNormal(RaycastHit hit)
+    protected Vector3 GetInterpolatedHitNormal(RaycastHit hit)
     {
         // Get interpolated mesh normal at hit location 
         // (using hit.normal causes the player to snap in to position as it's not interpolated)
@@ -68,7 +57,7 @@ public class EnemyPhysics : MonoBehaviour
 
     // Taken from https://gamedev.stackexchange.com/questions/89693/how-could-i-constrain-player-movement-to-the-surface-of-a-3d-object-using-unity
     //
-    protected void UpdatePlayerTransform(Vector3 movementDirection)
+    protected void UpdateCharacterTransform(Vector3 movementDirection)
     {
         RaycastHit hit;
 
@@ -76,8 +65,8 @@ public class EnemyPhysics : MonoBehaviour
         {
             Vector3 interpolatedNormal = GetInterpolatedHitNormal(hit);
 
-            transform.rotation = Quaternion.FromToRotation(transform.up, interpolatedNormal) * transform.rotation; ;
-            transform.position = hit.point + interpolatedNormal * m_positionOffsetScale;
+            transform.rotation = Quaternion.FromToRotation(transform.up, interpolatedNormal) * transform.rotation;
+            //transform.position = hit.point + interpolatedNormal * m_positionOffsetScale;
         }
     }
 
