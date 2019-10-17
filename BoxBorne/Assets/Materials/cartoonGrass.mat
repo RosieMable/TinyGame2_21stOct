@@ -53,11 +53,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _mainTexture:
-        m_Texture: {fileID: 2800000, guid: 301b5c828f69fd140a0db39ee777a7f3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 901181eef8f1107409b8eef804584148, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _metallicMap:
-        m_Texture: {fileID: 2800000, guid: 136f905bba3c6bd4f96145df4a30380d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _normalMap:
@@ -65,11 +65,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _smoothness:
-        m_Texture: {fileID: 2800000, guid: 8f067f39a4fd13840b1b743a5d86535e, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_917C6C2A: 0.13
+    - Vector1_917C6C2A: 0.06
     - Vector1_E5944C8C: 0
     - _AlphaClip: 0
     - _Blend: 0
@@ -92,8 +92,8 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _normalIntensity: 0.21
-    - _windDensity: 0.1
+    - _normalIntensity: 0.05
+    - _windDensity: 0.17
     m_Colors:
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
