@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    [SerializeField] private float m_moveSpeed;
+    [SerializeField] public float m_moveSpeed;
 
     [SerializeField] private float m_rotateSpeed;
 
@@ -15,6 +15,8 @@ public class CubeController : MonoBehaviour
     [SerializeField] private float m_positionOffsetScale;
 
     private bool isTeleporting;
+
+    public bool isKnockedBack;
 
     public void TeleportPlayer(Transform target, float duration)
     {
@@ -50,6 +52,11 @@ public class CubeController : MonoBehaviour
     {
 
         if (isTeleporting)
+        {
+            return;
+        }
+
+        if (isKnockedBack)
         {
             return;
         }
@@ -139,5 +146,4 @@ public class CubeController : MonoBehaviour
 
         return false;
     }
-
 }
