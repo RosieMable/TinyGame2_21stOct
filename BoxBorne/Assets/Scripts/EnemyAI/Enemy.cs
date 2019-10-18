@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class Enemy : EnemyPhysics
 {
-    // Type
-    private enum EnemyType { Melee, Ranged }
-    [SerializeField] private EnemyType enemyType;
-
     // Detection / Combat
     [SerializeField] protected float detectionRange = 0.5f;
-    private float originalDetectionRange;
-    [SerializeField] protected float attackRange = 0.2f;
+    protected float originalDetectionRange;
     [SerializeField] protected float minimumRange = 0.2f;
-    private float attackDelay;
-    [SerializeField] private float attackCooldown = 0.5f;
-    [SerializeField] private GameObject rangedProjectile = null;
-    private CubeController player;
+    protected CubeController player;
 
     // Stats
     [SerializeField] private int health;
@@ -30,7 +22,7 @@ public class Enemy : EnemyPhysics
     private int patrolPointIndex = 0;
 
     // Misc
-    private bool knockedBack = false;
+    protected bool knockedBack = false;
 
     private void Awake()
     {
@@ -38,12 +30,11 @@ public class Enemy : EnemyPhysics
         originalDetectionRange = detectionRange;
         player = FindObjectOfType<CubeController>();
     }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            TakeDamage(player.transform.position, 5);
+            TakeDamage(5);
         }
         
         UpdateCharacterTransform(transform.position);
@@ -67,15 +58,6 @@ public class Enemy : EnemyPhysics
                 {
                     MoveToLocation(player.transform);
                 }
-
-                if (distanceToPlayer <= attackRange)
-                {
-                    if (Time.time > attackDelay)
-                    {
-                        attackDelay = attackDelay + attackCooldown;
-                        Attack();
-                    }
-                }
             }
             else
             {
@@ -85,13 +67,13 @@ public class Enemy : EnemyPhysics
         }        
     }
 
-    private void MoveToLocation(Transform targetTransform)
+    protected void MoveToLocation(Transform targetTransform)
     {
         transform.LookAt(targetTransform, transform.up);
         transform.position = Vector3.MoveTowards(transform.position, targetTransform.position, m_moveSpeed * Time.deltaTime);        
     }
 
-    private void Patrol()
+    protected void Patrol()
     {
         if (patrolPoints.Count > 0)
         {
@@ -111,19 +93,7 @@ public class Enemy : EnemyPhysics
         }
     }
 
-    private void Attack()
-    {
-        if (enemyType == EnemyType.Melee)
-        {
-            // Melee Attack Code
-        }
-        else
-        {
-            // Ranged Attack Code
-        }
-    }
-
-    public void TakeDamage(Vector3 sourcePoint, int damageValue)
+    public void TakeDamage(int damageValue)
     {
         health -= damageValue;
         CheckHealth();
@@ -131,7 +101,7 @@ public class Enemy : EnemyPhysics
         StartCoroutine(KnockbackEffect(0.5f));
     }
 
-    private void CheckHealth()
+    protected void CheckHealth()
     {
         if (health <= 0)
         {
@@ -139,12 +109,12 @@ public class Enemy : EnemyPhysics
         }
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         Destroy(gameObject); // Update later for a death animation/sound effect to be played before destruction
     }
 
-    private IEnumerator KnockbackEffect(float movementLockoutDuration)
+    protected IEnumerator KnockbackEffect(float movementLockoutDuration)
     {
         knockedBack = true;
         transform.position = Vector3.Lerp(transform.position, transform.position - transform.forward * 0.5f, movementLockoutDuration * m_moveSpeed);
@@ -156,8 +126,5 @@ public class Enemy : EnemyPhysics
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
