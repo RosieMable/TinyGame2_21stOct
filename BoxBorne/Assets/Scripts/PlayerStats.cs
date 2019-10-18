@@ -12,12 +12,12 @@ public class PlayerStats : MonoBehaviour
         player = FindObjectOfType<CubeController>();
     }
 
-    public void TakeDamage(int damageValue)
+    public void TakeDamage(Transform damageSource, int damageValue)
     {
         health -= damageValue;
         CheckHealth();
 
-        StartCoroutine(KnockbackEffect(0.5f));
+        StartCoroutine(KnockbackEffect(damageSource, 0.5f));
     }
 
     private void CheckHealth()
@@ -32,11 +32,17 @@ public class PlayerStats : MonoBehaviour
         // Needs to be expanded on.
         print("I died");
     }
-    private IEnumerator KnockbackEffect(float movementLockoutDuration)
+    private IEnumerator KnockbackEffect(Transform sourcePoint, float movementLockoutDuration)
     {
         player.isKnockedBack = true;
-        transform.position = Vector3.Lerp(transform.position, transform.position - transform.forward * 0.5f, movementLockoutDuration * player.m_moveSpeed);
+        transform.position = Vector3.Lerp(transform.position, transform.position + sourcePoint.forward * 0.5f, 10 * Time.deltaTime);
         yield return new WaitForSeconds(movementLockoutDuration);
         player.isKnockedBack = false;
+    }
+
+    private void Attack()
+    {
+        // Play Attack Animation
+        // Animation has attached collider, damage class may need to be on the weapon?
     }
 }

@@ -56,32 +56,32 @@ public class CubeController : MonoBehaviour
             return;
         }
 
-        if (isKnockedBack)
-        {
-            return;
-        }
-
         // Get movement direction based on camera orientation
         // Taken from https://gamedev.stackexchange.com/questions/89693/how-could-i-constrain-player-movement-to-the-surface-of-a-3d-object-using-unity
         //
         Vector3 movementDirection = Vector3.zero;
-        if (Input.GetAxisRaw("Vertical") > 0)
-        {
-            movementDirection += m_cameraTransform.up;
-        }
-        else if (Input.GetAxisRaw("Vertical") < 0)
-        {
-            movementDirection += -m_cameraTransform.up;
-        }
 
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (!isKnockedBack)
         {
-            movementDirection += m_cameraTransform.right;
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                movementDirection += m_cameraTransform.up;
+            }
+            else if (Input.GetAxisRaw("Vertical") < 0)
+            {
+                movementDirection += -m_cameraTransform.up;
+            }
+
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                movementDirection += m_cameraTransform.right;
+            }
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                movementDirection += -m_cameraTransform.right;
+            }
         }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            movementDirection += -m_cameraTransform.right;
-        }
+        
         movementDirection.Normalize();
 
         // Move player

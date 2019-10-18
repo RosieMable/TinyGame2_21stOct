@@ -197,6 +197,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7175945739301178905, guid: 4685b8f0e451a3a48a7fa3bc32a9c605,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4685b8f0e451a3a48a7fa3bc32a9c605, type: 3}
 --- !u!1001 &81205565
@@ -301,6 +306,7 @@ GameObject:
   - component: {fileID: 272554430}
   - component: {fileID: 272554429}
   - component: {fileID: 272554428}
+  - component: {fileID: 272554433}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Untagged
@@ -394,6 +400,56 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &272554433
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272554427}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!1 &398277304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1928139630387058340, guid: 7c016f70e374cb94d8712f69ebbbb785,
+    type: 3}
+  m_PrefabInstance: {fileID: 478378650}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &398277305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 398277304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: facc3c83028a4a3468d9ae99a27609f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_moveSpeed: 0.5
+  m_rotateSpeed: 45
+  m_worldLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_positionOffsetScale: 0.05
+  dialogue: {fileID: 0}
+  source: {fileID: 0}
+  damage: 1
+  detectionRange: 0.5
+  minimumRange: 0
+  health: 2
+  detectedAudioClip: {fileID: 0}
+  patrolPoints:
+  - {fileID: 2097823370}
+  - {fileID: 1306387311}
 --- !u!1 &459999840
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +747,8 @@ PrefabInstance:
       propertyPath: minimumRange
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1637221292, guid: 7c016f70e374cb94d8712f69ebbbb785, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7c016f70e374cb94d8712f69ebbbb785, type: 3}
 --- !u!1 &488649243
 GameObject:
@@ -1028,6 +1085,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1165624521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165624517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f321ec6def46ed41ac1d67df5e882fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
 --- !u!1 &1277902227
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,25 +1268,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1605239954 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7175945739301178903, guid: 4685b8f0e451a3a48a7fa3bc32a9c605,
-    type: 3}
-  m_PrefabInstance: {fileID: 33544079}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1605239959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605239954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f321ec6def46ed41ac1d67df5e882fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
 --- !u!1001 &1852266195
 PrefabInstance:
   m_ObjectHideFlags: 0

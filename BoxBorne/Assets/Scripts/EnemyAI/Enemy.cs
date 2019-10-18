@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : EnemyPhysics
+public abstract class Enemy : EnemyPhysics
 {
     // Detection / Combat
+    [SerializeField] protected int damage = 1;
     [SerializeField] protected float detectionRange = 0.5f;
     protected float originalDetectionRange;
     [SerializeField] protected float minimumRange = 0.2f;
-    protected CubeController player;
+    protected PlayerStats player;
 
     // Stats
     [SerializeField] private int health;
@@ -28,15 +29,10 @@ public class Enemy : EnemyPhysics
     {
         audioSource = GetComponent<AudioSource>();
         originalDetectionRange = detectionRange;
-        player = FindObjectOfType<CubeController>();
+        player = FindObjectOfType<PlayerStats>();
     }
     private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(5);
-        }
-        
+    {        
         UpdateCharacterTransform(transform.position);
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -93,12 +89,12 @@ public class Enemy : EnemyPhysics
         }
     }
 
-    public void TakeDamage(int damageValue)
+    public void TakeDamage(Transform damageSource, int damageValue)
     {
         health -= damageValue;
         CheckHealth();
 
-        StartCoroutine(KnockbackEffect(0.5f));
+        StartCoroutine(KnockbackEffect(damageSource, 0.5f));
     }
 
     protected void CheckHealth()
@@ -114,15 +110,15 @@ public class Enemy : EnemyPhysics
         Destroy(gameObject); // Update later for a death animation/sound effect to be played before destruction
     }
 
-    protected IEnumerator KnockbackEffect(float movementLockoutDuration)
+    protected IEnumerator KnockbackEffect(Transform sourcePoint, float movementLockoutDuration)
     {
         knockedBack = true;
-        transform.position = Vector3.Lerp(transform.position, transform.position - transform.forward * 0.5f, movementLockoutDuration * m_moveSpeed);
+        transform.position = Vector3.Lerp(transform.position, transform.position - transform.forward * 0.5f, 10 * Time.deltaTime);
         yield return new WaitForSeconds(movementLockoutDuration);
         knockedBack = false;
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);

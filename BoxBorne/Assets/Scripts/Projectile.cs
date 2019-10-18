@@ -28,7 +28,8 @@ public class Projectile : MonoBehaviour
     {
         if (collision.gameObject == player.gameObject)
         {
-            player.TakeDamage(damage);
+            player.TakeDamage(transform, damage);
+            Destroy(gameObject);
         }   
     }
 }

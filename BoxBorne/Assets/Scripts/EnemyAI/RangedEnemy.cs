@@ -10,18 +10,8 @@ public class RangedEnemy : Enemy
     [SerializeField] private GameObject rangedProjectile = null;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(5);
-        }
-
         UpdateCharacterTransform(transform.position);
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
@@ -64,5 +54,12 @@ public class RangedEnemy : Enemy
     private void Attack()
     {
         GameObject _Projectile = Instantiate(rangedProjectile, transform.position + transform.forward, Quaternion.identity, null);
+    }
+
+    protected override void OnDrawGizmosSelected()
+    {
+        base.OnDrawGizmosSelected();
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
