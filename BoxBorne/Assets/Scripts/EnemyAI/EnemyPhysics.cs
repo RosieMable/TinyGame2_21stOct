@@ -14,6 +14,8 @@ public abstract class EnemyPhysics : MonoBehaviour
 
     [SerializeField] protected DialogueScriptableObject dialogue;
 
+    [SerializeField] protected AudioSource source;
+
     protected void FixedUpdate()
     {
         // Get movement direction based on camera orientation
@@ -87,6 +89,6 @@ public abstract class EnemyPhysics : MonoBehaviour
 
     protected void onInteraction()
     {
-        DialogueManager.Instance.DisplayLineAndPlayVoice(dialogue, dialogue.VoiceLine);
+        DialogueManager.Instance.DisplayLineAndPlayVoice(dialogue, dialogue.VoiceAudio, source);
     }
 }

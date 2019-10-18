@@ -8,11 +8,13 @@ public class NPC : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] private float interactionRange = 0.5f; // What range the player needs to be inside of to interact
     [SerializeField] private GameObject interactionPrompt; // What displays when the player is in range - '!' or 'E', etc
+    [SerializeField] DialogueScriptableObject NPCLine;
 
     private void Awake()
     {
         player = FindObjectOfType<CubeController>();
         interactionPrompt.SetActive(false);
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -43,5 +45,6 @@ public class NPC : MonoBehaviour
     private void Interact()
     {
         // Interaction code goes here, play audio, etc
+        DialogueManager.Instance.DisplayLineAndPlayVoice(NPCLine, NPCLine.VoiceAudio, audioSource);
     }
 }

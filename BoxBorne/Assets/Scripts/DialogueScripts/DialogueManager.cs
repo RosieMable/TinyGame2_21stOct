@@ -3,42 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class DialogueManager : MonoBehaviour
+
+public class DialogueManager : MonoBehaviour
 {
     public Text dialogueText;
+    public static DialogueManager Instance;
 
-    public AudioSource source;
-
-    private static readonly object padlock = new object();
-    private static DialogueManager instance = null;
-    public static DialogueManager Instance
+    private void Awake()
     {
-        get
+        if (Instance == null)
         {
-            if (instance == null)
-            {
-                lock (padlock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new DialogueManager();
-                    }
-                }
-            }
-            return instance;
+            Instance = this;
         }
     }
- 
 
-    public void DisplayLineAndPlayVoice(DialogueScriptableObject dialogue, AudioClip VoiceAudio)
+    private void Start()
     {
-        StartCoroutine(DisplayTextWhileSound(dialogue, VoiceAudio));
+        if (dialogueText == null)
+            GameObject.FindGameObjectWithTag("Dialogue");
+    }
+
+    private void Update()
+    {
+        if (dialogueText == null)
+            GameObject.FindGameObjectWithTag("Dialogue");
     }
 
 
-    IEnumerator DisplayTextWhileSound(DialogueScriptableObject Cdialogue, AudioClip CvoiceLine)
+    public void DisplayLineAndPlayVoice(DialogueScriptableObject dialogue, AudioClip VoiceAudio, AudioSource source)
     {
-        dialogueText.text = Cdialogue.VoiceLines[0];
+        StartCoroutine(DisplayTextWhileSound(dialogue, VoiceAudio, source));
+    }
+
+
+    IEnumerator DisplayTextWhileSound(DialogueScriptableObject Cdialogue, AudioClip CvoiceLine, AudioSource source)
+    {
+        if (dialogueText == null)
+            GameObject.FindGameObjectWithTag("Dialogue");
+
+        dialogueText.text = Cdialogue.VoiceLine;
 
         source.PlayOneShot(CvoiceLine);
 

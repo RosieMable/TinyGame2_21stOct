@@ -14,13 +14,14 @@ public class UIManager : MonoBehaviour
     public static bool paused;
 
     [SerializeField] GameObject PauseMenu;
-    [SerializeField] GameObject OptionsMenu;
 
     public CanvasGroup gameOverScreen;
     public CanvasGroup victoryScreen;
 
     public GameObject gameScene;
 
+    public DialogueScriptableObject dialoguetest;
+    public AudioSource source;
     private void Start()
     {
 
@@ -29,7 +30,6 @@ public class UIManager : MonoBehaviour
     {
         canvasGroup = this.GetComponentInChildren<CanvasGroup>();
         PauseMenu.SetActive(false);
-        OptionsMenu.SetActive(false);
 
         gameOverScreen.alpha = 0;
         gameOverScreen.blocksRaycasts = false;
@@ -51,6 +51,8 @@ public class UIManager : MonoBehaviour
         StartCoroutine(FadeThenDoSomething());
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        DialogueManager.Instance.DisplayLineAndPlayVoice(dialoguetest, dialoguetest.VoiceAudio, source);
     }
 
     public void OnQuit()
@@ -62,16 +64,6 @@ public class UIManager : MonoBehaviour
     {
         PauseGame();
         Debug.Log(Time.timeScale);
-    }
-
-    public void OnOptions()
-    {
-        OptionsMenu.SetActive(true);
-    }
-
-    public void ExitOptions()
-    {
-        OptionsMenu.SetActive(false);
     }
 
     public void OnGameOver()
