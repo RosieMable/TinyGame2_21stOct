@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 3213732986864542903}
   - component: {fileID: 1637221295}
   - component: {fileID: 1637221294}
-  - component: {fileID: 1637221292}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -147,36 +146,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.4
   m_Center: {x: -0.1, y: 0.4, z: -0.1}
---- !u!114 &1637221292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928139630387058340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 170b93cc6ef9e264aadb4180ba61fdd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_moveSpeed: 0.5
-  m_rotateSpeed: 45
-  m_worldLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  m_positionOffsetScale: 0.05
-  dialogue: {fileID: 0}
-  enemyType: 0
-  detectionRange: 0.5
-  attackRange: 0.2
-  minimumRange: 0.15
-  attackCooldown: 0.5
-  rangedProjectile: {fileID: 0}
-  health: 100
-  detectedAudioClip: {fileID: 0}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!1 &2236317757600424042
 GameObject:
   m_ObjectHideFlags: 0

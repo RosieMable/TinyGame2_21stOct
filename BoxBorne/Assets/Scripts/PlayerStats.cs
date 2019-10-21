@@ -6,15 +6,14 @@ public class PlayerStats : MonoBehaviour
 {
     private CubeController player;
     [SerializeField] private int health;
-    private Animator anim;
-    private AudioSource audio;
+    private AudioSource audioSource;
     [SerializeField] AudioClip swingClip;
+    [SerializeField] private GameObject damageArea;
 
     private void Awake()
     {
         player = FindObjectOfType<CubeController>();
-        anim = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -58,15 +57,17 @@ public class PlayerStats : MonoBehaviour
     {
         // Play Attack Animation
         // Animation has attached collider, damage class may need to be on the weapon?
-        StartCoroutine(PlayAttackAnimation(0.02f));
+        StartCoroutine(PlayAttackAnimation(0.1f));
     }
 
     private IEnumerator PlayAttackAnimation(float delay)
     {
-       // audio.clip = swingClip;
-       // audio.Play();
-        anim.SetBool("IsAttacking", true);
+        audioSource.clip = swingClip;
+        audioSource.Play();
+        damageArea.SetActive(true);
+
         yield return new WaitForSeconds(delay);
-        anim.SetBool("IsAttacking", false);
+
+        damageArea.SetActive(false);
     }
 }
