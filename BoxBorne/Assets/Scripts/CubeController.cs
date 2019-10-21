@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeController : MonoBehaviour
 {
-    [SerializeField] private float m_moveSpeed;
+    [SerializeField] public float m_moveSpeed;
 
     [SerializeField] private float m_rotateSpeed;
 
@@ -14,7 +14,12 @@ public class CubeController : MonoBehaviour
 
     [SerializeField] private float m_positionOffsetScale;
 
+    private Rigidbody ChadRB;
+
+
     private bool isTeleporting;
+
+    public bool isKnockedBack;
 
     public void TeleportPlayer(Transform target, float duration)
     {
@@ -24,6 +29,11 @@ public class CubeController : MonoBehaviour
 
     private IEnumerator TeleportPlayer_Coroutine(Transform target, float duration)
     {
+        ChadRB = GetComponent<Rigidbody>();
+
+        ChadRB.isKinematic = true;
+        
+
         isTeleporting = true;
 
         float remainingTime = duration;
@@ -39,11 +49,8 @@ public class CubeController : MonoBehaviour
 
         transform.position = target.position;
         isTeleporting = false;
-    }
+        ChadRB.isKinematic = false;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -58,23 +65,28 @@ public class CubeController : MonoBehaviour
         // Taken from https://gamedev.stackexchange.com/questions/89693/how-could-i-constrain-player-movement-to-the-surface-of-a-3d-object-using-unity
         //
         Vector3 movementDirection = Vector3.zero;
-        if (Input.GetAxisRaw("Vertical") > 0)
-        {
-            movementDirection += m_cameraTransform.up;
-        }
-        else if (Input.GetAxisRaw("Vertical") < 0)
-        {
-            movementDirection += -m_cameraTransform.up;
-        }
 
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (!isKnockedBack)
         {
-            movementDirection += m_cameraTransform.right;
+            if (Input.GetAxisRaw("Vertical") > 0)
+            {
+                movementDirection += m_cameraTransform.up;
+            }
+            else if (Input.GetAxisRaw("Vertical") < 0)
+            {
+                movementDirection += -m_cameraTransform.up;
+            }
+
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                movementDirection += m_cameraTransform.right;
+            }
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                movementDirection += -m_cameraTransform.right;
+            }
         }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            movementDirection += -m_cameraTransform.right;
-        }
+        
         movementDirection.Normalize();
 
         // Move player
@@ -139,5 +151,4 @@ public class CubeController : MonoBehaviour
 
         return false;
     }
-
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogueScriptableObject : ScriptableObject
 {
     [TextArea(3, 10)]
-    public string[] VoiceLines;
+    public string VoiceLine;
 
-    public AudioClip VoiceLine;
+    public AudioClip VoiceAudio;
 }

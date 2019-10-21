@@ -14,22 +14,28 @@ public class UIManager : MonoBehaviour
     public static bool paused;
 
     [SerializeField] GameObject PauseMenu;
-    [SerializeField] GameObject OptionsMenu;
 
     public CanvasGroup gameOverScreen;
     public CanvasGroup victoryScreen;
 
     public GameObject gameScene;
 
-    private void Start()
-    {
+    public GameObject interact;
 
-    }
+    public DialogueScriptableObject dialoguetest;
+    public AudioSource source;
+
+    public Image healthBar;
+
+    public GameObject uiHealth;
+
+
+    bool isGameOver;
+
     private void Awake()
     {
         canvasGroup = this.GetComponentInChildren<CanvasGroup>();
         PauseMenu.SetActive(false);
-        OptionsMenu.SetActive(false);
 
         gameOverScreen.alpha = 0;
         gameOverScreen.blocksRaycasts = false;
@@ -38,6 +44,14 @@ public class UIManager : MonoBehaviour
         victoryScreen.alpha = 0;
         victoryScreen.blocksRaycasts = false;
         victoryScreen.interactable = false;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        isGameOver = true;
+
+        uiHealth.SetActive(false);
+
     }
 
     private void Update()
@@ -51,6 +65,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(FadeThenDoSomething());
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        isGameOver = false;
     }
 
     public void OnQuit()
@@ -64,16 +79,6 @@ public class UIManager : MonoBehaviour
         Debug.Log(Time.timeScale);
     }
 
-    public void OnOptions()
-    {
-        OptionsMenu.SetActive(true);
-    }
-
-    public void ExitOptions()
-    {
-        OptionsMenu.SetActive(false);
-    }
-
     public void OnGameOver()
     {
         gameOverScreen.blocksRaycasts = true;
@@ -83,6 +88,8 @@ public class UIManager : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        isGameOver = true;
+        uiHealth.SetActive(false);
 
     }
 
@@ -92,11 +99,17 @@ public class UIManager : MonoBehaviour
         victoryScreen.interactable = true;
         StartCoroutine(FadeCanvas(victoryScreen, 0, 1, 0.6f));
         gameScene.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        isGameOver = true;
+        uiHealth.SetActive(false);
     }
 
     public void OnRetry()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
     }
 
     void PauseGame()
@@ -153,11 +166,15 @@ public class UIManager : MonoBehaviour
 
     void ToActivateOnStart()
     {
+        gameScene.SetActive(true);
+        uiHealth.SetActive(true);
+
     }
 
-    private void OnDisable()
+    public void OnInteraction()
     {
-    }
+        interact.SetActive(true);
 
+    }
 
 }

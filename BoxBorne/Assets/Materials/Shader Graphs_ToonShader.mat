@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_ToonShader
-  m_Shader: {fileID: -6465566751694194690, guid: 72eb3e8a9e67a1b4691c95023ff87d08,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: 1a48b2f33a6b38545b8a1564a9127834, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,6 +19,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_30FEF525:
+        m_Texture: {fileID: 2800000, guid: e28dcc1cd7ef7374f90a1e3acfbaa5b1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_F611A408:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_E894BD50_Texture_1:
         m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
@@ -41,6 +48,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_3CFD09B5: 0.67
+    - Vector1_8386A876: 0
+    - Vector1_98063928: 0.5
+    - Vector1_C5F28BFB: 0.5
     - _dabsRotation: 7.4
     - _dabsSize: 4.32
     - _emissionMultiplier: 7.28
@@ -50,4 +61,5 @@ Material:
     - _useNormalMap: 1
     - _useSpecularDabs: 1
     m_Colors:
+    - Color_DEB3AA71: {r: 1, g: 0.8623325, b: 0.080188684, a: 0}
     - _tint: {r: 1, g: 1, b: 1, a: 1}
