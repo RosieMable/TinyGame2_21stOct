@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerStats : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField] AudioClip swingClip;
     [SerializeField] private GameObject damageArea;
+    private float attackDelay = 0;
+    [SerializeField] private float attackCooldown = 0.3f;
 
     private void Awake()
     {
@@ -20,7 +23,11 @@ public class PlayerStats : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            Attack();
+            if (Time.time > attackDelay)
+            {
+                attackDelay = Time.time + attackCooldown;
+                Attack();
+            }
         }   
     }
 
@@ -43,7 +50,9 @@ public class PlayerStats : MonoBehaviour
     {
         // Needs to be expanded on.
         // GameOver overlay/scene transition
-        print("I died");
+
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
     }
     private IEnumerator KnockbackEffect(Transform sourcePoint, float movementLockoutDuration)
     {
@@ -57,7 +66,7 @@ public class PlayerStats : MonoBehaviour
     {
         // Play Attack Animation
         // Animation has attached collider, damage class may need to be on the weapon?
-        StartCoroutine(PlayAttackAnimation(0.1f));
+        StartCoroutine(PlayAttackAnimation(0.2f));
     }
 
     private IEnumerator PlayAttackAnimation(float delay)
@@ -65,9 +74,12 @@ public class PlayerStats : MonoBehaviour
         audioSource.clip = swingClip;
         audioSource.Play();
         damageArea.SetActive(true);
+        Transform childTransform = transform.Find("Chad Boxington");
+        transform.Find("Chad Boxington").Rotate(new Vector3(0,-45,0));
 
         yield return new WaitForSeconds(delay);
 
+        transform.Find("Chad Boxington").Rotate(new Vector3(0, 45, 0));
         damageArea.SetActive(false);
     }
 }

@@ -10,6 +10,7 @@ public abstract class Enemy : EnemyPhysics
     protected float originalDetectionRange;
     [SerializeField] protected float minimumRange = 0.2f;
     protected PlayerStats player;
+    private bool detected = false;
 
     // Stats
     [SerializeField] private int health;
@@ -32,6 +33,7 @@ public abstract class Enemy : EnemyPhysics
         originalDetectionRange = detectionRange;
         player = FindObjectOfType<PlayerStats>();
     }
+
     private void Update()
     {        
         UpdateCharacterTransform(transform.position);
@@ -44,12 +46,17 @@ public abstract class Enemy : EnemyPhysics
             {
                 transform.LookAt(player.transform.position, transform.up);
 
+                if (!detected)
+                {
+                    audioSource.clip = detectedAudioClip;
+                    audioSource.Play();
+                    detected = true;
+                }                
+
                 if (detectionRange != originalDetectionRange * 2)
                 {
                     detectionRange = originalDetectionRange * 2;
-                }
-
-                // Play detectedAudioClip here
+                }                
 
                 if (distanceToPlayer > minimumRange)
                 {
@@ -58,6 +65,7 @@ public abstract class Enemy : EnemyPhysics
             }
             else
             {
+                detected = false;
                 detectionRange = originalDetectionRange;
                 Patrol();
             }
@@ -96,7 +104,11 @@ public abstract class Enemy : EnemyPhysics
         CheckHealth();
 
         int audioClipToPlay = Random.Range(0, damageClips.Length);
-        audioSource.clip = damageClips[audioClipToPlay];
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = damageClips[audioClipToPlay];
+            audioSource.Play();
+        }
 
         StartCoroutine(KnockbackEffect(damageSource, 0.5f));
     }
