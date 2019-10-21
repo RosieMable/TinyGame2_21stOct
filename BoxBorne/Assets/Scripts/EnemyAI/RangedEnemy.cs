@@ -53,7 +53,8 @@ public class RangedEnemy : Enemy
 
     private void Attack()
     {
-        GameObject _Projectile = Instantiate(rangedProjectile, transform.position + transform.forward, Quaternion.identity, null);
+        GameObject _Projectile = Instantiate(rangedProjectile, transform.position + (transform.forward / 30), Quaternion.identity, null);
+        _Projectile.transform.rotation = transform.rotation;
     }
 
     protected override void OnDrawGizmosSelected()

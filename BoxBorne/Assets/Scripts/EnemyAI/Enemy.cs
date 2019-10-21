@@ -17,6 +17,7 @@ public abstract class Enemy : EnemyPhysics
     // Audio
     private AudioSource audioSource;
     [SerializeField] private AudioClip detectedAudioClip;
+    [SerializeField] private AudioClip[] damageClips;
 
     // Patrol
     [SerializeField] private List<Transform> patrolPoints = new List<Transform>();
@@ -93,6 +94,9 @@ public abstract class Enemy : EnemyPhysics
     {
         health -= damageValue;
         CheckHealth();
+
+        int audioClipToPlay = Random.Range(0, damageClips.Length);
+        audioSource.clip = damageClips[audioClipToPlay];
 
         StartCoroutine(KnockbackEffect(damageSource, 0.5f));
     }

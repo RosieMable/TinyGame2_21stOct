@@ -6,7 +6,7 @@ public class GroundEnemy : Enemy
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject == player.gameObject)
+        if (collision.collider.gameObject == player.gameObject)
         {
             player.TakeDamage(transform, damage);
 
