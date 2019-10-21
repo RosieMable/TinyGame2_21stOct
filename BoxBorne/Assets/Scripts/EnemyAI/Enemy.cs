@@ -27,6 +27,8 @@ public abstract class Enemy : EnemyPhysics
     // Misc
     protected bool knockedBack = false;
 
+    public bool isBoss;
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -118,6 +120,11 @@ public abstract class Enemy : EnemyPhysics
         if (health <= 0)
         {
             Die();
+            if (isBoss)
+            {
+                UIManager ui = FindObjectOfType<UIManager>();
+                ui.OnLevelComplete();
+            }
         }
     }
 

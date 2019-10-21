@@ -6,17 +6,21 @@ using UnityEngine.SceneManagement;
 public class PlayerStats : MonoBehaviour
 {
     private CubeController player;
-    [SerializeField] private int health;
+    public int health;
     private AudioSource audioSource;
     [SerializeField] AudioClip swingClip;
     [SerializeField] private GameObject damageArea;
     private float attackDelay = 0;
     [SerializeField] private float attackCooldown = 0.3f;
 
+    private UIManager uIManager;
+
     private void Awake()
     {
         player = FindObjectOfType<CubeController>();
         audioSource = GetComponent<AudioSource>();
+        uIManager = FindObjectOfType<UIManager>();
+        health = 6;
     }
 
     private void Update()
@@ -36,6 +40,8 @@ public class PlayerStats : MonoBehaviour
         health -= damageValue;
         CheckHealth();
 
+
+
         StartCoroutine(KnockbackEffect(damageSource, 0.5f));
     }
 
@@ -45,14 +51,13 @@ public class PlayerStats : MonoBehaviour
         {
             Die();
         }
+
+        uIManager.healthBar.fillAmount -= .166f;
     }
     private void Die()
     {
-        // Needs to be expanded on.
-        // GameOver overlay/scene transition
+        uIManager.OnGameOver();
 
-        string sceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(sceneName);
     }
     private IEnumerator KnockbackEffect(Transform sourcePoint, float movementLockoutDuration)
     {
