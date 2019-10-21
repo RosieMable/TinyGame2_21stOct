@@ -14,6 +14,9 @@ public class CubeController : MonoBehaviour
 
     [SerializeField] private float m_positionOffsetScale;
 
+    private Rigidbody ChadRB;
+
+
     private bool isTeleporting;
 
     public bool isKnockedBack;
@@ -26,6 +29,11 @@ public class CubeController : MonoBehaviour
 
     private IEnumerator TeleportPlayer_Coroutine(Transform target, float duration)
     {
+        ChadRB = GetComponent<Rigidbody>();
+
+        ChadRB.isKinematic = true;
+        
+
         isTeleporting = true;
 
         float remainingTime = duration;
@@ -41,6 +49,8 @@ public class CubeController : MonoBehaviour
 
         transform.position = target.position;
         isTeleporting = false;
+        ChadRB.isKinematic = false;
+
     }
 
     void Start()
