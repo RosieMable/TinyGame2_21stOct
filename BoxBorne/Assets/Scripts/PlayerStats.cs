@@ -6,10 +6,23 @@ public class PlayerStats : MonoBehaviour
 {
     private CubeController player;
     [SerializeField] private int health;
+    private Animator anim;
+    private AudioSource audio;
+    [SerializeField] AudioClip swingClip;
 
     private void Awake()
     {
         player = FindObjectOfType<CubeController>();
+        anim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Attack();
+        }   
     }
 
     public void TakeDamage(Transform damageSource, int damageValue)
@@ -30,6 +43,7 @@ public class PlayerStats : MonoBehaviour
     private void Die()
     {
         // Needs to be expanded on.
+        // GameOver overlay/scene transition
         print("I died");
     }
     private IEnumerator KnockbackEffect(Transform sourcePoint, float movementLockoutDuration)
@@ -44,5 +58,15 @@ public class PlayerStats : MonoBehaviour
     {
         // Play Attack Animation
         // Animation has attached collider, damage class may need to be on the weapon?
+        StartCoroutine(PlayAttackAnimation(0.02f));
+    }
+
+    private IEnumerator PlayAttackAnimation(float delay)
+    {
+       // audio.clip = swingClip;
+       // audio.Play();
+        anim.SetBool("IsAttacking", true);
+        yield return new WaitForSeconds(delay);
+        anim.SetBool("IsAttacking", false);
     }
 }
