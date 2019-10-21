@@ -275,9 +275,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 4c8401d8ba5fe904a9d64af9f7ac5769, type: 3}
   - {fileID: 8300000, guid: 811468bc2f9defb479ccbb2ed397cafa, type: 3}
   - {fileID: 8300000, guid: c4db421c8d85c5b42b09fae0fbec0586, type: 3}
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
+  patrolPoints: []
 --- !u!1 &2236317757600424042
 GameObject:
   m_ObjectHideFlags: 0
