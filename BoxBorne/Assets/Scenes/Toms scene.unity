@@ -641,6 +641,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 632465805}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &724893259 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 307191587778324190, guid: ea90d4b5909010a42849ff20c5f94ab3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2050700392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &724893260
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724893259}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: faee79736abf5b0409622449df272a1d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &724893263 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 307191587778324188, guid: ea90d4b5909010a42849ff20c5f94ab3,
@@ -1426,6 +1451,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1950050406}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1779975979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9020535689005801926, guid: ea90d4b5909010a42849ff20c5f94ab3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2050700392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1779975980
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1779975979}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fec396fa1a79585469ec5ed7b4923edb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1918439822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1632,7 +1682,7 @@ PrefabInstance:
     - target: {fileID: 307191587778324188, guid: ea90d4b5909010a42849ff20c5f94ab3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.056807566
+      value: 0.0591
       objectReference: {fileID: 0}
     - target: {fileID: 307191587778324188, guid: ea90d4b5909010a42849ff20c5f94ab3,
         type: 3}
@@ -1679,6 +1729,16 @@ PrefabInstance:
       propertyPath: m_cameraTransform
       value: 
       objectReference: {fileID: 1576324889}
+    - target: {fileID: 5437032989403534293, guid: ea90d4b5909010a42849ff20c5f94ab3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5437032989403534293, guid: ea90d4b5909010a42849ff20c5f94ab3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3271541755589749454, guid: ea90d4b5909010a42849ff20c5f94ab3,
         type: 3}
       propertyPath: m_LocalPosition.x
